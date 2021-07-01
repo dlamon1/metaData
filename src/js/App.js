@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import './Drop.css'
+// import { ipcRenderer } from 'electron';
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';

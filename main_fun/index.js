@@ -23,13 +23,14 @@ async function folder(arr, folderCheck) {
 async function edit(path) {
 
   let arr = (path.split('/'))
-  let newPath = ''
-  let folderCheck = ''
+  let newPath = ""
+  let folderCheck = ""
   let titleArr = arr[arr.length - 1].split('.')
-  let title = titleArr[0]
+  let title = titleArr[0].replaceAll(' ', ' ')
 
   for (let i = 1; i < arr.length; i++) {
     if (i != arr.length - 1) {
+      folderCheck = folderCheck.concat(`/${arr[i]}`)
       newPath = newPath.concat(`/${arr[i]}`)
     } else {
       folderCheck = newPath.concat('/UpdatedMeta/')
@@ -37,14 +38,13 @@ async function edit(path) {
     }
   }
 
+  const cmd = `-i "${path}" -metadata title="${title}" -codec copy "${newPath}"`
 
-  const cmd = `-i ${path} -metadata title=${title} -codec copy ${newPath}`
-  // const cmd = `-i ${path} -metadata title=${data.title} -metadata year="${data.year} -codec copy ${newPath}`
+  folder(arr, folderCheck)
+    .then(ffmpeg.run(cmd))
+    .then((result) => console.log(result))
+    .catch((err) => console.log(err))
 
-
-  folder(arr, folderCheck).then(ffmpeg.run(cmd))
-
-  // ffmpeg.run(cmd)
 }
 
 
