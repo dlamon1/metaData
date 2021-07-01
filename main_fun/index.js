@@ -1,22 +1,26 @@
-var ffmetadata = require("ffmetadata");
-var pathToFfmpeg = require('ffmpeg-static');
+const id = require('node-id3')
+
+// const options = {
+//   include: ['TALB', 'TIT2'],    // only read the specified tags (default: all)
+//   exclude: ['APIC'],            // don't read the specified tags (default: [])
+//   onlyRaw: false,               // only return raw object (default: false)
+//   noRaw: false                  // don't generate raw object (default: false)
+// }
 
 function edit(path) {
 
-  ffmetadata.setFfmpegPath(pathToFfmpeg)
+  const tags = {
+    title: "Tomorrow",
+    artist: "Kevin Penkin",
+    album: "TVアニメ「メイドインアビス」オリジナルサウンドトラック",
+    APIC: "./example/mia_cover.jpg",
+    TRCK: "27"
+  }
 
-  let pathArr = path.split('/')
-  let prefix = pathArr[pathArr.length]
-  console.log(pathArr)
-  console.log(pathArr.length)
+  const write = id.write(tags, path)
 
-  let options = {
-    title: 'test title',
-  };
-  ffmetadata.write(path, options, function (err) {
-    if (err) console.error("Error writing cover art");
-    else console.log("Cover art added");
-  });
+  const tags = id.read(path)
+  console.log(tags)
 
 }
 

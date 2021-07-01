@@ -6,4 +6,4 @@ contextBridge.exposeInMainWorld('e', {
       ipcRenderer.send('dropped', path)
     }
   }
-})
+});
