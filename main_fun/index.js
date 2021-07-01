@@ -1,8 +1,9 @@
 const ffmpeg = require("ffmpeg-cli");
 const fs = require('fs')
 const fsPromises = fs.promises;
+const path = require('path')
 
-async function folder(arr, folderCheck) {
+async function folder(folderCheck) {
 
   return fsPromises.access(folderCheck, function (error) {
     if (error) {
@@ -20,27 +21,22 @@ async function folder(arr, folderCheck) {
   })
 }
 
-async function edit(path) {
+async function edit(filePath) {
 
-  let arr = (path.split('/'))
-  let newPath = ""
-  let folderCheck = ""
-  let titleArr = arr[arr.length - 1].split('.')
-  let title = titleArr[0].replaceAll(' ', ' ')
+  let pathObj = path.parse(filePath)
+  let pathIn = path.join(pathObj.dir, pathObj.base)
+  let newPath = path.join(pathObj.dir, 'UpdatedMeta')
+  let pathOut = path.join(newPath, pathObj.base)
 
-  for (let i = 1; i < arr.length; i++) {
-    if (i != arr.length - 1) {
-      folderCheck = folderCheck.concat(`/${arr[i]}`)
-      newPath = newPath.concat(`/${arr[i]}`)
-    } else {
-      folderCheck = newPath.concat('/UpdatedMeta/')
-      newPath = newPath.concat(`/UpdatedMeta/${arr[i]}`)
-    }
-  }
+  console.log(pathObj)
+  console.log('')
+  console.log(pathIn)
+  console.log('')
+  console.log(pathOut)
 
-  const cmd = `-i "${path}" -metadata title="${title}" -codec copy "${newPath}"`
+  const cmd = `-i "${pathIn}" -metadata title="${pathObj.name}" -codec copy "${pathOut}"`
 
-  folder(arr, folderCheck)
+  folder(newPath)
     .then(ffmpeg.run(cmd))
     .then((result) => console.log(result))
     .catch((err) => console.log(err))
