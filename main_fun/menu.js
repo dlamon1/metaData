@@ -8,7 +8,7 @@ const template = [
     submenu: [
       isMac ? { role: 'close' } : { role: 'quit' },
       { role: 'reload' },
-      { role: 'toggleDevTools' },
+      // { role: 'toggleDevTools' },
     ]
   },
   // { role: 'editMenu' }

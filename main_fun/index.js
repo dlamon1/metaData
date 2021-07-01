@@ -28,12 +28,6 @@ async function edit(filePath) {
   let newPath = path.join(pathObj.dir, 'UpdatedMeta')
   let pathOut = path.join(newPath, pathObj.base)
 
-  console.log(pathObj)
-  console.log('')
-  console.log(pathIn)
-  console.log('')
-  console.log(pathOut)
-
   const cmd = `-i "${pathIn}" -metadata title="${pathObj.name}" -codec copy "${pathOut}"`
 
   folder(newPath)
@@ -42,6 +36,5 @@ async function edit(filePath) {
     .catch((err) => console.log(err))
 
 }
-
 
 module.exports = { edit }

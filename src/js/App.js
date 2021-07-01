@@ -47,7 +47,7 @@ const Basic = (props) => {
                 backgroundColor: isDragActive ? 'white' : ''
               }}>
               <Typography sx={{ color: 'primary.main', width: '60%', textAlign: 'center', fontSize: 28 }}>
-                Drop a File or Folder Here
+                Drop and Drop Files or Folders Here
               </Typography>
             </Grid>
           </Box>
