@@ -10,9 +10,9 @@
 
   - Run npm run make to bundle an installation file
 
-    or
+OR
 
-  - Download install files for mac and windows from this oneDrive: https://1drv.ms/u/s!An_zE6QPOPs3pkad_1RRcQJ7-hDo?e=qChzi1
+- Download install files for mac and windows from this oneDrive: https://1drv.ms/u/s!An_zE6QPOPs3pkad_1RRcQJ7-hDo?e=qChzi1
 
 ## How to use
 
