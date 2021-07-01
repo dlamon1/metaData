@@ -1,4 +1,4 @@
-const id = require('node-id3')
+const ffmpeg = require("ffmpeg-cli");
 
 // const options = {
 //   include: ['TALB', 'TIT2'],    // only read the specified tags (default: all)
@@ -9,19 +9,21 @@ const id = require('node-id3')
 
 function edit(path) {
 
-  const tags = {
-    title: "Tomorrow",
-    artist: "Kevin Penkin",
-    album: "TVアニメ「メイドインアビス」オリジナルサウンドトラック",
-    APIC: "./example/mia_cover.jpg",
-    TRCK: "27"
+  let arr = (path.split('/'))
+  let newPath = ''
+
+  for (let i = 1; i < arr.length; i++) {
+    if (i != arr.length - 1) {
+      newPath = newPath.concat(`/${arr[i]}`)
+    } else {
+      newPath = newPath.concat('/_')
+      newPath = newPath.concat(arr[i])
+    }
   }
 
-  const write = id.write(tags, path)
+  const cmd = `-i ${path} -metadata title="Movie Title" -metadata year="2010" -codec copy ${newPath}`
 
-  const tags = id.read(path)
-  console.log(tags)
-
+  ffmpeg.run(cmd).then(result => console.log(result))
 }
 
 
